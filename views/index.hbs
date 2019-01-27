@@ -1,0 +1,88 @@
+<h1>My current user name is :{{this.userr.name}}</h1>
+
+<div id="commentable-container" class="container commentable-container">
+  <h1 class="title">
+    Html  
+  </h1>
+  <p data-section-id="1" class="commentable-section">
+    Each paragraph tag has the "commentable-section" class, making it a section which can be commented on after you've
+    initialized a new SideComments object and pointed it at the parent element, which is "#commentable-container" for
+    this demo.
+  </p>
+  <p data-section-id="2" class="commentable-section">
+    Clicking on the markers on the right will show the SideComments. Sections without any comments only show their
+    marker on hover.
+  </p>
+  <p data-section-id="3" class="commentable-section">
+    This is the default theme that comes with SideComments.js. You can easily theme SideComments to your liking by not
+    including "default-theme.css" and just styling it all yourself.
+  </p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="/javascripts/side-comments.js"></script>
+<script src="/javascripts/test_data.js"></script>
+
+<script>
+
+  //Construimos el objeto del usuario actual
+  var currentUsera = {
+    id: `{{this.userr.id}}`,
+    avatarUrl: `{{this.userr.avatarUrl}}`,
+    authorUrl: `{{this.userr.authorUrl}}`,
+    name: `{{this.userr.name}}`,
+  };
+
+  //Costruimos el objeto de los comentarios actuales (tenemos que checar que esto va a ser un array)
+
+  var existingComments = [
+    {
+      sectionId: `{{this.coment.sectionId}}`,
+      comments: [
+        {
+          id: `{{this.coment.id}}`,
+          authorAvatarUrl: `{{this.userr.avatarUrl}}`,
+          authorName: `{{this.coment.name}}`,
+          authorId: "4",
+          comment: `{{this.coment.comment}}`,
+          replies: [],
+        }
+      ]
+    }
+  ];
+
+
+
+
+  $(document).ready(function () {
+    var SideComments = require('side-comments');
+    window.sideComments = new SideComments('#commentable-container', currentUsera, existingComments);
+    window.sideComments.on('commentPosted', function (comment) {
+      comment.id = parseInt(Math.random() * (100000 - 1) + 1);
+      sideComments.insertComment(comment);
+    });
+    window.sideComments.on('commentDeleted', function (comment) {
+      sideComments.removeComment(comment.sectionId, comment.id);
+    });
+
+
+    // Listen to "commentPosted", and send a request to your backend to save the comment.
+    // More about this event in the "docs" section.
+    sideComments.on('commentPosted', function (comment) {
+      $.ajax({
+        url: '/comments',
+        type: 'POST',
+        data: comment,
+        success: function (savedComment) {
+          // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
+          alert(savedComment);
+          sideComments.insertComment(comment);
+        }
+      });
+    });
+  });
+
+
+
+</script>
