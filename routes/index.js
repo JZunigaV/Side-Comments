@@ -17,11 +17,10 @@ router.get("/", (req, res, next) => {
 
   User.findOne({ id: 4 })
     .then(user => {
-
       const data = {
-        userr:user,
+        userr: user,
         coment: commentas
-      }
+      };
       console.log(data.coment);
       res.render("index", data);
     })
@@ -30,6 +29,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
+//Test route
 router.get("/test", (req, res, next) => {
   const data = {
     name: "jesus"
@@ -40,33 +40,16 @@ router.get("/test", (req, res, next) => {
 //Comment posted
 router.post("/comments", (req, res, next) => {
   //Save the comment on database
-  const {
-    sectionId,
-    comment,
-    authorAvatarUrl,
-    authorName,
-    authorId,
-    authorUrl,
-    id
-  } = req.body;
+  const test = req.body;
+  res.send({ msg: test });
 
-  const newComment = new Comment({
-    sectionId,
-    comment,
-    authorAvatarUrl,
-    authorName,
-    authorId,
-    authorUrl,
-    id
-  });
-
-  newComment
-    .save()
-    .then(book => {
-      res.redirect("/index");
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  // newComment
+  //   .save()
+  //   .then(book => {
+  //     res.redirect("/index");
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
 });
 module.exports = router;
