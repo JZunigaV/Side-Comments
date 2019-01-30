@@ -1,6 +1,12 @@
 <h1>My current user name is :{{this.userr.name}}</h1>
 
-<h1>Comments object: {{this.coment}}</h1>
+
+<h2>These are the responses</h2>
+<ul class="comments">
+  {{#each this.coment}}
+  <li>{{this.comments}}</li>
+  {{/each}}
+</ul>
 
 
 <div id="commentable-container" class="container commentable-container">
