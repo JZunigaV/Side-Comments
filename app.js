@@ -52,13 +52,18 @@ app.use(
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
-hbs.registerHelper("assign", function(varName, varValue, options) {
+hbs.registerHelper("assign", (varName, varValue, options) => {
   if (!options.data.root) {
     options.data.root = {};
   }
   options.data.root[varName] = varValue;
 });
-
+// hbs.registerHelper("assign", function(varName, varValue, options) {
+//   if (!options.data.root) {
+//     options.data.root = {};
+//   }
+//   options.data.root[varName] = varValue;
+// });
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 const index = require("./routes/index");

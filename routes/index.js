@@ -54,7 +54,6 @@ router.post("/comments", (req, res, next) => {
     id,
   } = req.body;
 
-  //Assign he body to a variable
   const data = {
     authorAvatarUrl,
     authorId,
@@ -65,7 +64,7 @@ router.post("/comments", (req, res, next) => {
     id,
   };
 
-  //Comment object
+  //Here we create the new Comment object with the data of req.body
   const newComment = {
     authorAvatarUrl,
     authorName,
@@ -91,7 +90,7 @@ router.post("/comments", (req, res, next) => {
       setDefaultsOnInsert: true,
     };
 
-  //if the document is not found, then create a new one, else update comments and push the newCommen
+  //if the document is not found, then create a new one, else update comments and push the newComment
   Section.findOneAndUpdate(query, update, options)
     .then(comment => {
       res.redirect("/");
