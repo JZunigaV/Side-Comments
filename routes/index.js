@@ -51,9 +51,11 @@ router.post("/comments", (req, res, next) => {
     authorName,
     authorUrl,
     comment,
-    id,
-    sectionId
+    sectionId,
+    id
   } = req.body;
+
+  const idComment = id
 
   //Assign he body to a variable
   const data = {
@@ -73,6 +75,7 @@ router.post("/comments", (req, res, next) => {
     authorId,
     authorUrl,
     comment,
+    id,
     replies: []
   }
 

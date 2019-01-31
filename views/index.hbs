@@ -2,9 +2,15 @@
 
 
 <h2>These are the responses</h2>
+
+
+<p>{{this.coment}}</p>
+
+
+
 <ul class="comments">
   {{#each this.coment}}
-  <li>{{this.comments}}</li>
+  <li>{{this}}</li>
   {{/each}}
 </ul>
 
@@ -72,23 +78,21 @@
 
   //Costruimos el objeto de los comentarios actuales (tenemos que checar que esto va a ser un array)
 
-  var existingComments = [
-    {
-      sectionId: `{{this.coment.sectionId}}`,
-      comments: [
-        {
-          id: `{{this.coment.id}}`,
-          authorAvatarUrl: `{{this.userr.avatarUrl}}`,
-          authorName: `{{this.coment.name}}`,
-          authorId: "4",
-          comment: `{{this.coment.comment}}`,
-          replies: [],
-        }
-      ]
-    }
-  ];
 
+  //This is the mock up
+  var existingComments = [{
+    sectionId: '1',
+    comments: [{
+      replies: [],
+      authorAvatarUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDW3D0Emu0_gpP-tAEGPjW88zSabvpdICv6BaoNLArqY3xB4NA',
+      authorName: 'Jesus Zuñiga Vega',
+      authorId: '1',
+      authorUrl: '',
+      comment: 'Hello Darkness'
+    }]
+  }];
 
+  var asiEstanComments = []
 
 
   $(document).ready(function () {
