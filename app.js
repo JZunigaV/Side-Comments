@@ -57,7 +57,6 @@ hbs.registerHelper("assign", function(varName, varValue, options) {
     options.data.root = {};
   }
   options.data.root[varName] = varValue;
-  console.log(varValue);
 });
 
 app.use(express.static(path.join(__dirname, "public")));
