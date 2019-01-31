@@ -41,7 +41,9 @@ router.get("/test", (req, res, next) => {
   res.render("test", data);
 });
 
-//Comment posted
+// @route   POST /comments
+// @desc    Insert a new comment on existing section or creates a new Section with comment
+// @access  Private
 router.post("/comments", (req, res, next) => {
   //Get the request body
   const {
@@ -98,6 +100,14 @@ router.post("/comments", (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
+});
+
+// @route   POST /delete
+// @desc    Deletes a comment from the array
+// @access  Private
+router.post("/delete", (req, res, next) => {
+  const test = req.body;
+  console.log(req.body);
 });
 
 module.exports = router;

@@ -71,6 +71,9 @@
   //Existing comments
   var existingComments = [{{{@root.existingComments}}}];
 
+
+
+
   //Construimos el objeto del usuario actual
   var currentUsera = {
     id: `{{this.userr.id}}`,
@@ -87,10 +90,10 @@
       comment.id = parseInt(Math.random() * (100000 - 1) + 1);
     });
 
-    //Delete 
-    window.sideComments.on('commentDeleted', function (comment) {
-      sideComments.removeComment(comment.sectionId, comment.id);
-    });
+    //Delete test 
+    //window.sideComments.on('commentDeleted', function (comment) {
+    //  sideComments.removeComment(comment.sectionId, comment.id);
+    //});
 
     // Listen to "commentPosted", and send a request to your backend to save the comment.
     // More about this event in the "docs" section.
@@ -106,5 +109,23 @@
         }
       });
     });
+
+    // Listen to "commentDeleted" and send a request to your backend to delete the comment.
+    // More about this event in the "docs" section.
+    sideComments.on('commentDeleted', function (commentId) {
+      $.ajax({
+        url: '/delete',
+        type: 'POST',
+        data: commentId,
+        success: function (success) {
+          // Do something.
+        }
+      });
+    });
+
+
+
+
+
   });
 </script>

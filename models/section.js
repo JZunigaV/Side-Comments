@@ -23,7 +23,7 @@ const commentSchema = new Schema(
     id: String, //not needed, mongoose will automatically add an "_id" property when you save
     authorAvatarUrl: String,
     authorName: String,
-    authorId: String,
+    authorId: Number,
     authorUrl: String,
     comment: String,
     replies: {
