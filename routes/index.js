@@ -7,7 +7,6 @@ const Section = require("../models/section");
 router.get("/", (req, res, next) => {
 
   var commentas = [];
-
   Section.find()
     .then(comments => {
 
@@ -21,12 +20,20 @@ router.get("/", (req, res, next) => {
       id: 1
     })
     .then(user => {
+    
+       commentas.forEach(element => {
+
+       element._id = element._id.toString();
+
+      });
+
+
       const data = {
         userr: user,
         coment: commentas
       };
 
-      console.log("YThe data is:", data);
+      console.log("The data is:", data);
       res.render("index", data);
     })
     .catch(err => {
@@ -78,7 +85,6 @@ router.post("/comments", (req, res, next) => {
     id,
     replies: []
   }
-
 
   //Query 
   const query = {

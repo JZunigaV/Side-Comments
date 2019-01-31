@@ -8,6 +8,7 @@
 
 
 
+
 <ul class="comments">
   {{#each this.coment}}
   <li>{{this}}</li>
@@ -78,9 +79,26 @@
 
   //Costruimos el objeto de los comentarios actuales (tenemos que checar que esto va a ser un array)
 
+  //Teeeest
+  var existingComments = [
+    {
+      sectionId: `{{this.coment.sectionId}}`,
+      comments: [
+        {
+          id: `{{this.coment.id}}`,
+          authorAvatarUrl: `{{this.userr.avatarUrl}}`,
+          authorName: `{{this.coment.name}}`,
+          authorId: `{{this.coment.name}}`,
+          comment: `{{this.coment.comment}}`,
+          replies: [],
+        }
+      ]
+    }
+  ];
+
 
   //This is the mock up
-  var existingComments = [{
+  var existingCommentsasas = [{
     sectionId: '1',
     comments: [{
       replies: [],
@@ -91,8 +109,6 @@
       comment: 'Hello Darkness'
     }]
   }];
-
-  var asiEstanComments = []
 
 
   $(document).ready(function () {

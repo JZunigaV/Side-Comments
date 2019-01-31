@@ -33,7 +33,7 @@ const commentSchema = new Schema({
 
 //Section includes all other schemas
 const sectionSchema = new Schema({
-  _id: false,
+  _id:false,
   sectionId: {
     type: String
   },
