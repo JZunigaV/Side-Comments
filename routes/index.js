@@ -5,35 +5,28 @@ const Section = require("../models/section");
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-
   var commentas = [];
   Section.find()
     .then(comments => {
-
       commentas = comments;
+      //Foreach to pass the id of each section as string
+      commentas.forEach(element => {
+        element._id = element._id.toString();
+      });
     })
     .catch(err => {
       console.log(err);
-    })
+    });
 
   User.findOne({
-      id: 1
-    })
+    id: 1,
+  })
     .then(user => {
-    
-       commentas.forEach(element => {
-
-       element._id = element._id.toString();
-
-      });
-
-
       const data = {
         userr: user,
-        coment: commentas
+        coment: commentas,
       };
-
-      console.log("The data is:", data);
+      //console.log("The data is:", data);
       res.render("index", data);
     })
     .catch(err => {
@@ -43,14 +36,13 @@ router.get("/", (req, res, next) => {
 
 router.get("/test", (req, res, next) => {
   const data = {
-    name: "jesus"
+    name: "jesus",
   };
   res.render("test", data);
 });
 
 //Comment posted
 router.post("/comments", (req, res, next) => {
-
   //Get the request body
   const {
     authorAvatarUrl,
@@ -59,10 +51,8 @@ router.post("/comments", (req, res, next) => {
     authorUrl,
     comment,
     sectionId,
-    id
+    id,
   } = req.body;
-
-  const idComment = id
 
   //Assign he body to a variable
   const data = {
@@ -72,8 +62,8 @@ router.post("/comments", (req, res, next) => {
     authorUrl,
     comment,
     sectionId,
-    id
-  }
+    id,
+  };
 
   //Comment object
   const newComment = {
@@ -83,22 +73,22 @@ router.post("/comments", (req, res, next) => {
     authorUrl,
     comment,
     id,
-    replies: []
-  }
+    replies: [],
+  };
 
-  //Query 
+  //Query
   const query = {
-      sectionId: sectionId
+      sectionId: sectionId,
     },
     update = {
       $push: {
-        comments: newComment
-      }
+        comments: newComment,
+      },
     },
     options = {
       upsert: true,
       new: true,
-      setDefaultsOnInsert: true
+      setDefaultsOnInsert: true,
     };
 
   //if the document is not found, then create a new one, else update comments and push the newCommen
@@ -108,11 +98,7 @@ router.post("/comments", (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
-    })
+    });
 });
-
-
-
-
 
 module.exports = router;

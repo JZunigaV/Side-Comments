@@ -1,16 +1,3 @@
-<h1>My current user name is :{{this.userr.name}}</h1>
-
-<h2>These are the responses</h2>
-
-<p>{{this.coment}}</p>
-
-<ul class="comments">
-  {{#each this.coment}}
-  <li>{{this}}</li>
-  {{/each}}
-</ul>
-
-
 <div id="commentable-container" class="container commentable-container">
   <h1 class="title">
     What is a Distributed Version Control System?
@@ -21,6 +8,9 @@
     file or set of files over time so you can recall specific versions later.
   </h2>
 
+
+  {{!-- This is the handlebar helper that we registered--}}
+  {{assign 'existingComments' this.coment}}
 
   <p data-section-id="1" class="commentable-section">
     The DVCS usually works together with a Code Hosting Platform, where your team can store your project’s code to
@@ -55,6 +45,20 @@
     You are going to understand why you need to use Git in your computer in a minute. Before understand that, you need
     to learn what is GitHub.
   </p>
+
+  <p data-section-id="4" class="commentable-section">
+    Git is a free and open DVCS designed to handle computer programming projects with speed and efficiency. It’s easy
+    to learn and has a very high performance.
+
+    Git runs locally. What does it mean? It allows you to use the Version Control System in your laptop. It means that
+    you will have in your own computer a Version Control System, to recover all code, see what changes you have done,
+    etc.
+
+    You are going to understand why you need to use Git in your computer in a minute. Before understand that, you need
+    to learn what is GitHub.
+  </p>
+
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -62,7 +66,10 @@
 <script src="/javascripts/side-comments.js"></script>
 <script src="/javascripts/test_data.js"></script>
 
-<script>
+<script type="application/javascript">
+
+  //Existing comments
+  var existingComments = [{{{@root.existingComments}}}];
 
   //Construimos el objeto del usuario actual
   var currentUsera = {
@@ -72,51 +79,18 @@
     name: `{{this.userr.name}}`,
   };
 
-  //Costruimos el objeto de los comentarios actuales (tenemos que checar que esto va a ser un array)
-
-  //Teeeest
-  var existingComments = [
-    {
-      sectionId: `{{this.coment.sectionId}}`,
-      comments: [
-        {
-          id: `{{this.coment.id}}`,
-          authorAvatarUrl: `{{this.userr.avatarUrl}}`,
-          authorName: `{{this.coment.name}}`,
-          authorId: `{{this.coment.name}}`,
-          comment: `{{this.coment.comment}}`,
-          replies: [],
-        }
-      ]
-    }
-  ];
-
-
-  //This is the mock up
-  var existingCommentsasas = [{
-    sectionId: '1',
-    comments: [{
-      replies: [],
-      authorAvatarUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDW3D0Emu0_gpP-tAEGPjW88zSabvpdICv6BaoNLArqY3xB4NA',
-      authorName: 'Jesus Zuñiga Vega',
-      authorId: '1',
-      authorUrl: '',
-      comment: 'Hello Darkness'
-    }]
-  }];
-
-
   $(document).ready(function () {
+
     var SideComments = require('side-comments');
     window.sideComments = new SideComments('#commentable-container', currentUsera, existingComments);
     window.sideComments.on('commentPosted', function (comment) {
       comment.id = parseInt(Math.random() * (100000 - 1) + 1);
-      //sideComments.insertComment(comment);
     });
+
+    //Delete 
     window.sideComments.on('commentDeleted', function (comment) {
       sideComments.removeComment(comment.sectionId, comment.id);
     });
-
 
     // Listen to "commentPosted", and send a request to your backend to save the comment.
     // More about this event in the "docs" section.
@@ -127,13 +101,10 @@
         data: comment,
         success: function (savedComment) {
           // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
-          alert(savedComment);
+          alert("Comment saved");
           sideComments.insertComment(comment);
         }
       });
     });
   });
-
-
-
 </script>
