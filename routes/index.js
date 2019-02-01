@@ -104,11 +104,22 @@ router.post("/comments", (req, res, next) => {
 });
 
 // @route   POST /delete
-// @desc    Deletes a comment from the array
+// @desc    Marks the recievied comment id as deleted
 // @access  Private
+
 router.post("/delete", (req, res, next) => {
-  const test = req.body;
-  console.log(req.body);
+  const commentId = req.body.id;
+  Section.update(
+    { "comments.id": commentId },
+    { $set: { "comments.$.deleted": true } },
+  )
+    .then(comment => {
+      console.log(comment);
+      res.render("index");
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 module.exports = router;
