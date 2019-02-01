@@ -71,9 +71,6 @@
   //Existing comments
   var existingComments = [{{{@root.existingComments}}}];
 
-
-
-
   //Construimos el objeto del usuario actual
   var currentUsera = {
     id: `{{this.userr.id}}`,
@@ -88,11 +85,6 @@
     window.sideComments = new SideComments('#commentable-container', currentUsera, existingComments);
     window.sideComments.on('commentPosted', function (comment) {
       comment.id = parseInt(Math.random() * (100000 - 1) + 1);
-    });
-
-    //Delete test 
-    window.sideComments.on('commentDeleted', function (comment) {
-      sideComments.removeComment(comment.sectionId, comment.id);
     });
 
     // Listen to "commentPosted", and send a request to your backend to save the comment.
@@ -118,14 +110,10 @@
         type: 'POST',
         data: commentId,
         success: function (success) {
+          //sideComments.removeComment(commentId.sectionId, commentId.id);
           window.location.assign('/');
         }
       });
     });
-
-
-
-
-
   });
 </script>
