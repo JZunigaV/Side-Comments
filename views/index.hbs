@@ -91,9 +91,9 @@
     });
 
     //Delete test 
-    //window.sideComments.on('commentDeleted', function (comment) {
-    //  sideComments.removeComment(comment.sectionId, comment.id);
-    //});
+    window.sideComments.on('commentDeleted', function (comment) {
+      sideComments.removeComment(comment.sectionId, comment.id);
+    });
 
     // Listen to "commentPosted", and send a request to your backend to save the comment.
     // More about this event in the "docs" section.
@@ -118,6 +118,7 @@
         type: 'POST',
         data: commentId,
         success: function (success) {
+          window.location.assign('/');
         }
       });
     });

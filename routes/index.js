@@ -115,7 +115,7 @@ router.post("/delete", (req, res, next) => {
   )
     .then(comment => {
       console.log(comment);
-      res.render("index");
+      res.redirect(200, "/");
     })
     .catch(err => {
       console.log(err);
