@@ -74,6 +74,7 @@ router.post("/comments", (req, res, next) => {
     authorUrl,
     comment,
     id,
+    deleted: false,
     replies: [],
   };
 

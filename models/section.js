@@ -26,6 +26,7 @@ const commentSchema = new Schema(
     authorId: Number,
     authorUrl: String,
     comment: String,
+    deleted: Boolean,
     replies: {
       type: [replySchema],
     },
